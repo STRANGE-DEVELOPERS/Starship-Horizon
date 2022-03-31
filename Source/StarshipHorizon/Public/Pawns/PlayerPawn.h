@@ -23,14 +23,20 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void OnTouchPress(ETouchIndex::Type FingerIndex, FVector Location);
-	void OnTouchRelease(ETouchIndex::Type FingerIndex, FVector Location);
+	
 
 	virtual void PossessedBy(AController* NewController) override;
 
 	APlayerController* PlayerController;
 
 private:
+
+	/** called to handle touch move event, moves player to touch move location  */
+	void OnTouchMove(ETouchIndex::Type Index, FVector Location);
+
+	/** called to set touch location  */
+	void OnTouchPressed(ETouchIndex::Type Index, FVector Location);
+
 
 	FVector2D TouchLocation;
 
@@ -50,9 +56,9 @@ public:
 	UStaticMeshComponent* PawnMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
-	USpringArmComponent* CamSpringArm;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
 	UCameraComponent* PawnCamera;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
+	float TouchMoveSensivity;
 
 };
