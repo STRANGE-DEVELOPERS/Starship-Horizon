@@ -25,6 +25,8 @@ APlayerPawn::APlayerPawn()
 
 	PawnCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PawnCamera"));
 	//PawnCamera->SetupAttachment(CamSpringArm);
+
+	ShootComponent1 = CreateAbstractDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
 }
 
 void APlayerPawn::PossessedBy(AController* NewController)

@@ -7,6 +7,7 @@
 #include "Components/BoxComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/ShootComponent.h"
 #include "PlayerPawn.generated.h"
 
 
@@ -57,6 +58,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
 	UCameraComponent* PawnCamera;
+
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
+	UShootComponent* ShootComponent1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
 	float TouchMoveSensivity;
