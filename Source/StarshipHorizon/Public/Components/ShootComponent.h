@@ -8,6 +8,22 @@
 #include "ShootComponent.generated.h"
 
 
+USTRUCT(BlueprintType)
+struct FShootInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
+	TSubclassOf<AShootProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting")
+	FVector Offset;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shooting")
+	float Angle;
+
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class STARSHIPHORIZON_API UShootComponent : public UActorComponent
 {
@@ -39,6 +55,6 @@ public:
 	float ShootPeriod;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
-	TSubclassOf<AShootProjectile> ProjectileClass;
+	TArray<FShootInfo> ShootInfos;
 
 };
