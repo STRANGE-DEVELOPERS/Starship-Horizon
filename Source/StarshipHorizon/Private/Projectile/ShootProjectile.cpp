@@ -2,6 +2,9 @@
 
 
 #include "Projectile/ShootProjectile.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/DamageType.h"
 #include "Components/StaticMeshComponent.h"
 #include "..\..\Public\Projectile\ShootProjectile.h"
 
@@ -33,8 +36,6 @@ void AShootProjectile::BeginPlay()
 	if (GetOwner())
 	{
 		Collision->IgnoreActorWhenMoving(GetOwner(), true);
-		UE_LOG(LogTemp, Log, TEXT("Onwer!!"));
-
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
@@ -42,7 +43,14 @@ void AShootProjectile::BeginPlay()
 
 void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OpelappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 BodyIndex, bool Sweep, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Log, TEXT("Proj Overlapped!!!"))
+	if (!GetOwner()) return;
+	APawn* PawnOwner = Cast<APawn>(GetOwner());
+	if (!PawnOwner) return;
+	AController* Instigat = PawnOwner->GetController();
+
+	UGameplayStatics::ApplyDamage(OtherActor, Damage, Instigat, this, UDamageType::StaticClass());
+
+	Destroy();
 }
 
 

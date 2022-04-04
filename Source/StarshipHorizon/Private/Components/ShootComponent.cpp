@@ -33,13 +33,16 @@ void UShootComponent::Shoot()
 	for (FShootInfo ShootInfo : ShootInfos)
 	{
 		FActorSpawnParameters SpawnParameters;
-
-		FRotator SpawnRotation = GetOwner()->GetActorRotation();
-		SpawnRotation.Add(0.f, ShootInfo.Angle, 0.f); 
+		SpawnParameters.Owner = GetOwner();
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 		FVector SpawnLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorRotation().RotateVector(ShootInfo.Offset);
 
-		GetWorld()->SpawnActor<AShootProjectile>(ShootInfo.ProjectileClass, SpawnLocation, SpawnRotation, SpawnParameters);
+		FRotator SpawnRotation = GetOwner()->GetActorRotation();
+		SpawnRotation.Add(0.f, ShootInfo.Angle, 0.f);
+
+		AShootProjectile* Projectile = GetWorld()->SpawnActor<AShootProjectile>(ShootInfo.ProjectileClass, SpawnLocation, SpawnRotation, SpawnParameters);
+		if(Projectile) Projectile->Damage = ShootInfo.Damage;
 	}
 }
 

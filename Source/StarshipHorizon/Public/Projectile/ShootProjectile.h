@@ -35,4 +35,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
 	float ProjectilesSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
+	float Damage;
 };

@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Components/BoxComponent.h"
 #include "Components/ShootComponent.h"
+#include "Components/HealthComponent.h"
 #include "EnemyPawn.generated.h"
 
 UCLASS()
@@ -20,6 +21,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void DestroyPawn();
 
 public:	
 	// Called every frame
@@ -36,4 +40,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
 	UShootComponent* ShootComponent1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
+	UHealthComponent* HealthComponent;
 };

@@ -18,6 +18,7 @@ AEnemyPawn::AEnemyPawn()
 	PawnMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	ShootComponent1 = CreateAbstractDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
+	HealthComponent = CreateAbstractDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +26,12 @@ void AEnemyPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	HealthComponent->OnHealthEnded.AddDynamic(this, &AEnemyPawn::DestroyPawn);
+}
+
+void AEnemyPawn::DestroyPawn()
+{
+	Destroy();
 }
 
 // Called every frame
