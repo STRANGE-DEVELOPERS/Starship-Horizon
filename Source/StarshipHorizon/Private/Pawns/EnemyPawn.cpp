@@ -9,6 +9,15 @@ AEnemyPawn::AEnemyPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	PawnCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("PawnCollision"));
+	RootComponent = PawnCollision;
+	PawnCollision->SetCollisionProfileName("Name");
+
+	PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PawnMesh"));
+	PawnMesh->SetupAttachment(PawnCollision, NAME_None);
+	PawnMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	ShootComponent1 = CreateAbstractDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
 }
 
 // Called when the game starts or when spawned

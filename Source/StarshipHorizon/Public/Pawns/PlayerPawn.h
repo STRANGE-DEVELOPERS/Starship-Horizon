@@ -59,7 +59,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
 	UCameraComponent* PawnCamera;
 
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
 	UShootComponent* ShootComponent1;
 

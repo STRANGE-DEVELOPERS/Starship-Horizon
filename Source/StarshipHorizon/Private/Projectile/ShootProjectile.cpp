@@ -15,19 +15,28 @@ AShootProjectile::AShootProjectile()
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision"));
 	RootComponent = Collision;
+	Collision->SetCollisionResponseToAllChannels(ECR_Ignore);
+	Collision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Collision, NAME_None);
 	Mesh->SetCollisionProfileName("NoCollision");
-
-
+	
+	
 }
 
 // Called when the game starts or when spawned
 void AShootProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (GetOwner())
+	{
+		Collision->IgnoreActorWhenMoving(GetOwner(), true);
+		UE_LOG(LogTemp, Log, TEXT("Onwer!!"));
+
+	}
+
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
 }
 
