@@ -6,4 +6,5 @@
 AStarshipHorizonGameModeBase::AStarshipHorizonGameModeBase()
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
+	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthComponent"));
 }
