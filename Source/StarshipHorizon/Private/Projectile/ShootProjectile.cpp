@@ -3,6 +3,7 @@
 
 #include "Projectile/ShootProjectile.h"
 #include "Components/StaticMeshComponent.h"
+#include "..\..\Public\Projectile\ShootProjectile.h"
 
 // Sets default values
 AShootProjectile::AShootProjectile()
@@ -27,7 +28,15 @@ void AShootProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
 }
+
+void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OpelappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 BodyIndex, bool Sweep, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Log, TEXT("Proj Overlapped!!!"))
+}
+
+
 
 // Called every frame
 void AShootProjectile::Tick(float DeltaTime)
