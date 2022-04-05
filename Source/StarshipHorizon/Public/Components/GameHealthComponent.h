@@ -27,7 +27,8 @@ protected:
 	int Healths;
 
 	UFUNCTION()
-	void OnPlayerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause);
+	void OnOwnerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause);
+
 public:	
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Health")

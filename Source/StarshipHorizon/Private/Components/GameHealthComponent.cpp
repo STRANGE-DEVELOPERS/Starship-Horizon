@@ -25,11 +25,11 @@ void UGameHealthComponent::BeginPlay()
 		return;
 	}
 
-	PlayerPawn->OnTakeAnyDamage.AddDynamic(this, &UGameHealthComponent::OnPlayerDamahed);
+	PlayerPawn->OnTakeAnyDamage.AddDynamic(this, &UGameHealthComponent::OnOwnerDamahed);
 	
 }
 
-void UGameHealthComponent::OnPlayerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause)
+void UGameHealthComponent::OnOwnerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause)
 {
 	ChangeHealths(-1);
 }

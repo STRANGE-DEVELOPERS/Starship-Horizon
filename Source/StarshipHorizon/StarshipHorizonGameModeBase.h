@@ -8,9 +8,9 @@
 #include "Components/GameHealthComponent.h"
 #include "StarshipHorizonGameModeBase.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameOverEvent);
+
+
 UCLASS()
 class STARSHIPHORIZON_API AStarshipHorizonGameModeBase : public AGameModeBase
 {
@@ -18,12 +18,20 @@ class STARSHIPHORIZON_API AStarshipHorizonGameModeBase : public AGameModeBase
 	
 		AStarshipHorizonGameModeBase();
 
+	virtual void BeginPlay() override;
+
 public:
 	/** enemy spawn component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
-		UEnemySpawnController* EnemySpawnController;
+	UEnemySpawnController* EnemySpawnController;
 
 	/** game health component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Health")
-		UGameHealthComponent* HealthsComponent;
+	UGameHealthComponent* HealthsComponent;
+
+	UPROPERTY(BlueprintAssignable, Category = "Game")
+	FGameOverEvent GameOver;
+
+	UFUNCTION(BlueprintCallable, Category = "Game")
+	void EndGame();
 };
