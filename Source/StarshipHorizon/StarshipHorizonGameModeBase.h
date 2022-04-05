@@ -19,9 +19,11 @@ class STARSHIPHORIZON_API AStarshipHorizonGameModeBase : public AGameModeBase
 		AStarshipHorizonGameModeBase();
 
 public:
+	/** enemy spawn component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
 		UEnemySpawnController* EnemySpawnController;
 
+	/** game health component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Health")
 		UGameHealthComponent* HealthsComponent;
 };
