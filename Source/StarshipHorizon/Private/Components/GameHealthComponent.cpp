@@ -2,6 +2,8 @@
 
 
 #include "Components/GameHealthComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/Pawn.h"
 
 // Sets default values for this component's properties
 UGameHealthComponent::UGameHealthComponent():
@@ -16,8 +18,20 @@ void UGameHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+
+	if (!PlayerPawn) {
+		UE_LOG(LogTemp, Error, TEXT("No PlayerPawn!!!"));
+		return;
+	}
+
+	PlayerPawn->OnTakeAnyDamage.AddDynamic(this, &UGameHealthComponent::OnPlayerDamahed);
 	
+}
+
+void UGameHealthComponent::OnPlayerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause)
+{
+	ChangeHealths(-1);
 }
 
 void UGameHealthComponent::ChangeHealths(int ByValue)
@@ -29,6 +43,8 @@ void UGameHealthComponent::ChangeHealths(int ByValue)
 	{
 		HealthsEnded.Broadcast();
 	}
+
+	UE_LOG(LogTemp, Log, TEXT("Health changed  %i"), Healths);
 }
 
 int UGameHealthComponent::GetHealths()

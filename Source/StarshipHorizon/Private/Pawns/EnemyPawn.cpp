@@ -2,6 +2,9 @@
 
 
 #include "Pawns/EnemyPawn.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/DamageType.h"
+#include"Components/StaticMeshComponent.h"
 
 // Sets default values
 AEnemyPawn::AEnemyPawn()
@@ -27,11 +30,21 @@ void AEnemyPawn::BeginPlay()
 	Super::BeginPlay();
 	
 	HealthComponent->OnHealthEnded.AddDynamic(this, &AEnemyPawn::DestroyPawn);
+	OnActorBeginOverlap.AddDynamic(this, &AEnemyPawn::OnEnemyOverlap);
 }
 
 void AEnemyPawn::DestroyPawn()
 {
 	Destroy();
+}
+
+void AEnemyPawn::OnEnemyOverlap(AActor* OverlapedActor, AActor* OtherActor)
+{
+	if (OtherActor != UGameplayStatics::GetPlayerPawn(this, 0)) return;
+
+	UGameplayStatics::ApplyDamage(OtherActor, 100.f, GetController(), this, UDamageType::StaticClass());
+
+	DestroyPawn();
 }
 
 // Called every frame

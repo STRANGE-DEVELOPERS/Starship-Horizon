@@ -25,6 +25,9 @@ protected:
 	UFUNCTION()
 	void DestroyPawn();
 
+	UFUNCTION()
+	void OnEnemyOverlap(AActor* OverlapedActor, AActor* OtherActor);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
