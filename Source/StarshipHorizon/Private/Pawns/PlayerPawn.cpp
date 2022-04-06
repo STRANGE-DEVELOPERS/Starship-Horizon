@@ -34,12 +34,30 @@ void APlayerPawn::PossessedBy(AController* NewController)
 	PlayerController = Cast<APlayerController>(NewController);
 }
 
+bool APlayerPawn::CanBeDamaged_Implemention()
+{
+	UE_LOG(LogTemp, Log, TEXT("Damage test"));
+	return true;
+}
+
 
 // Called when the game starts or when spawned
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser)
+{
+	if (!CanBeDamaged_Implemention())
+	{
+		UE_LOG(LogTemp, Log, TEXT("Cannot be Damage"));
+		return 0.f;
+	}
+
+	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
+	return Damage;
 }
 
 // Called every frame

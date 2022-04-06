@@ -20,12 +20,18 @@ public:
 	// Sets default values for this pawn's properties
 	APlayerPawn();
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual float TakeDamage(float Damage, const FDamageEvent &DamageEvent, AController* InstigatedBy, AActor* DamageCauser) override;
 
 	virtual void PossessedBy(AController* NewController) override;
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+	bool CanBeDamaged();
+	bool CanBeDamaged_Implemention();
 
 	APlayerController* PlayerController;
 
