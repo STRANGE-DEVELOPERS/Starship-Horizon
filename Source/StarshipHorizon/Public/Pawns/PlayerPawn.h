@@ -31,7 +31,7 @@ protected:
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
 	bool CanBeDamaged();
-	bool CanBeDamaged_Implemention();
+	bool CanBeDamaged_Implementation();
 
 	APlayerController* PlayerController;
 
@@ -67,7 +67,7 @@ public:
 	UCameraComponent* PawnCamera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Shooting")
-	UShootComponent* ShootComponent1;
+	UShootComponent* ShootComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
 	float TouchMoveSensivity;

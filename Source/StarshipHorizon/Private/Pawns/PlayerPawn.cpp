@@ -26,7 +26,7 @@ APlayerPawn::APlayerPawn()
 	PawnCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PawnCamera"));
 	//PawnCamera->SetupAttachment(CamSpringArm);
 
-	ShootComponent1 = CreateAbstractDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
+	ShootComponent = CreateAbstractDefaultSubobject<UShootComponent>(TEXT("ShootComponent"));
 }
 
 void APlayerPawn::PossessedBy(AController* NewController)
@@ -34,7 +34,7 @@ void APlayerPawn::PossessedBy(AController* NewController)
 	PlayerController = Cast<APlayerController>(NewController);
 }
 
-bool APlayerPawn::CanBeDamaged_Implemention()
+bool APlayerPawn::CanBeDamaged_Implementation()
 {
 	UE_LOG(LogTemp, Log, TEXT("Damage test"));
 	return true;
@@ -50,7 +50,7 @@ void APlayerPawn::BeginPlay()
 
 float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser)
 {
-	if (!CanBeDamaged_Implemention())
+	if (!CanBeDamaged())
 	{
 		UE_LOG(LogTemp, Log, TEXT("Cannot be Damage"));
 		return 0.f;
