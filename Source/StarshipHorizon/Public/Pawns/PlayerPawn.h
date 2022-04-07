@@ -10,7 +10,9 @@
 #include "Components/ShootComponent.h"
 #include "PlayerPawn.generated.h"
 
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPawnDamagedEvent);
+
 
 UCLASS()
 class STARSHIPHORIZON_API APlayerPawn : public APawn
