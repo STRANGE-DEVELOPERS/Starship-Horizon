@@ -15,23 +15,41 @@ UCLASS()
 class STARSHIPHORIZON_API AStarshipHorizonGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 		AStarshipHorizonGameModeBase();
 
 	virtual void BeginPlay() override;
 
+protected:
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Game")
+		void ExplodePawn();
+	void ExplodePawn_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Game")
+		void RecoverPawn();
+	void RecoverPawn_Implementation();
+
+	FTimerHandle RecoverTime;
+
 public:
 	/** enemy spawn component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
-	UEnemySpawnController* EnemySpawnController;
+		UEnemySpawnController* EnemySpawnController;
 
 	/** game health component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Health")
-	UGameHealthComponent* HealthsComponent;
+		UGameHealthComponent* HealthsComponent;
 
 	UPROPERTY(BlueprintAssignable, Category = "Game")
-	FGameOverEvent GameOver;
+		FGameOverEvent GameOver;
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
-	void EndGame();
+		void EndGame();
+
+	UPROPERTY(BlueprintReadWrite, Category = "Game")
+		float PlayerRecoverTime;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Game")
+		class	APlayerPawn* PlayerPawn;
 };

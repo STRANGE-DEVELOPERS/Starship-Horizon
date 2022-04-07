@@ -26,10 +26,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Game Health")
 	int Healths;
 
-	UFUNCTION()
-	void OnOwnerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause);
-
+	
 public:	
+	UFUNCTION()
+		void OnOwnerDamaged(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Health")
 		void ChangeHealths(int ByValue);

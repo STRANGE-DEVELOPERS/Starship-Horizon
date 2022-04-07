@@ -6,10 +6,12 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/PlayerController.h"
 
+
 // Sets default values
 APlayerPawn::APlayerPawn()
 	:
 	TouchMoveSensivity(1.f)
+	
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -38,6 +40,26 @@ bool APlayerPawn::CanBeDamaged_Implementation()
 {
 	UE_LOG(LogTemp, Log, TEXT("Damage test"));
 	return true;
+
+}
+
+
+
+void APlayerPawn::ExplodePawn_Implementation()
+{
+	SetActorEnableCollision(false);
+
+	ShootComponent->StopShooting();
+
+	
+}
+
+
+
+void APlayerPawn::RecoverPawn_Implementation()
+{
+	SetActorEnableCollision(true);
+	ShootComponent->StartShooting();
 }
 
 
@@ -55,7 +77,8 @@ float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, ACo
 		UE_LOG(LogTemp, Log, TEXT("Cannot be Damage"));
 		return 0.f;
 	}
-
+	PawnDamaged.Broadcast();
+	ExplodePawn();
 	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
 	return Damage;
 }

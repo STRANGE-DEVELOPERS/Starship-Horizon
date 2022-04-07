@@ -4,6 +4,7 @@
 #include "Components/GameHealthComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
+#include "Pawns/PlayerPawn.h"
 
 // Sets default values for this component's properties
 UGameHealthComponent::UGameHealthComponent():
@@ -25,11 +26,9 @@ void UGameHealthComponent::BeginPlay()
 		return;
 	}
 
-	PlayerPawn->OnTakeAnyDamage.AddDynamic(this, &UGameHealthComponent::OnOwnerDamahed);
-	
 }
 
-void UGameHealthComponent::OnOwnerDamahed(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause)
+void UGameHealthComponent::OnOwnerDamaged(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigst, AActor* DamageCause)
 {
 	ChangeHealths(-1);
 }

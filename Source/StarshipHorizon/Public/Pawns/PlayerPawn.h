@@ -10,6 +10,7 @@
 #include "Components/ShootComponent.h"
 #include "PlayerPawn.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPawnDamagedEvent);
 
 UCLASS()
 class STARSHIPHORIZON_API APlayerPawn : public APawn
@@ -20,6 +21,7 @@ public:
 	// Sets default values for this pawn's properties
 	APlayerPawn();
 
+	
 
 protected:
 	// Called when the game starts or when spawned
@@ -29,11 +31,13 @@ protected:
 
 	virtual void PossessedBy(AController* NewController) override;
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
-	bool CanBeDamaged();
-	bool CanBeDamaged_Implementation();
+	
 
 	APlayerController* PlayerController;
+
+	FVector2D MoveLimit;
+
+	
 
 private:
 
@@ -49,6 +53,19 @@ private:
 	bool Touching;
 
 public:	
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+	bool CanBeDamaged();
+	bool CanBeDamaged_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+	void ExplodePawn();
+	void ExplodePawn_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+	void RecoverPawn();
+	void RecoverPawn_Implementation();
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -72,4 +89,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Controls")
 	float TouchMoveSensivity;
 
+	UPROPERTY(BlueprintAssignable, Category = "Healths")
+	FPawnDamagedEvent PawnDamaged;
+	
 };
