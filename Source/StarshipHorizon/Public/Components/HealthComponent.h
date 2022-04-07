@@ -37,4 +37,5 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Health")
 	FHealhtEndedEvent OnHealthEnded;
+
 };

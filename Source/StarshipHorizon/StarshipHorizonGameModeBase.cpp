@@ -42,3 +42,8 @@ void AStarshipHorizonGameModeBase::EndGame()
 	GameOver.Broadcast();
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"));
 }
+
+void AStarshipHorizonGameModeBase::AddPoints(int Points)
+{
+	GamePoints += Points;
+}

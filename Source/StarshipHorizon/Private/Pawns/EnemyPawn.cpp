@@ -4,7 +4,8 @@
 #include "Pawns/EnemyPawn.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
-#include"Components/StaticMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "StarshipHorizon/StarshipHorizonGameModeBase.h"
 
 // Sets default values
 AEnemyPawn::AEnemyPawn()
@@ -35,6 +36,8 @@ void AEnemyPawn::BeginPlay()
 
 void AEnemyPawn::DestroyPawn()
 {
+	AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
+	if (GameMode) GameMode->AddPoints(DestroyPoints);
 	Destroy();
 }
 
