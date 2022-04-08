@@ -9,13 +9,15 @@
 // Sets default values
 ABonus::ABonus()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("BonusCollision"));
 	RootComponent = Collision;
 	Collision->SetCollisionObjectType(ECC_WorldDynamic);
 	/*Collision->SetCollisionResponseToAllChannels(ECR_Ignore);
 	Collision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);*/
 
-	Collision->SetSphereRadius(50);
+	Collision->SetSphereRadius(40);
 
 }
 

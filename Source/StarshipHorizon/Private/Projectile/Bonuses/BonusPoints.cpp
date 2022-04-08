@@ -7,8 +7,10 @@
 
 void ABonusPoints::BonusCollected_Implementation()
 {
+
 	AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
 	if (GameMode) GameMode->AddPoints(Points);
-
+	
 	Super::BonusCollected_Implementation();
+
 }

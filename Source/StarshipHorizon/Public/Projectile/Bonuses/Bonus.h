@@ -22,7 +22,7 @@ protected:
 
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
-	UFUNCTION(BlueprintNativeEvent, Category = "Healths")
+	UFUNCTION(BlueprintNativeEvent, Category = "Bonus")
 	void BonusCollected();
 	virtual void BonusCollected_Implementation();
 
