@@ -14,17 +14,23 @@ class STARSHIPHORIZON_API APawnShild : public AActor
 {
 	GENERATED_BODY()
 	
+protected:
+
+	FTimerHandle ShieldTimer;
+
+	class APlayerPawn* ShieldForPawn;
+
 public:	
 	// Sets default values for this actor's properties
 	APawnShild();
-
-
-public:	
 
 	UFUNCTION(BlueprintCallable, Category = "Shild")
 	void ActivateShield(APlayerPawn* PlayerPawn);
 
 	UFUNCTION(BlueprintCallable, Category = "Shild")
-	void DiactivateShield();
+	void DeactivateShield();
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Shild")
+	float ShieldTime;
 
 };

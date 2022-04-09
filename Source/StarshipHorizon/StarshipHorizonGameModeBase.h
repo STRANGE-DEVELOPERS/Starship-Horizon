@@ -6,9 +6,25 @@
 #include "GameFramework/GameModeBase.h"
 #include "Components/EnemySpawnController.h"
 #include "Components/GameHealthComponent.h"
+#include "Components/ShootComponent.h"
 #include "StarshipHorizonGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameOverEvent);
+
+USTRUCT(BlueprintType)
+struct FShootInfoLevel
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
+	TArray<FShootInfo> ShootInfos;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Shooting")
+	float ShootPeriod;
+
+};
 
 
 UCLASS()
@@ -35,27 +51,37 @@ protected:
 public:
 	/** enemy spawn component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")
-		UEnemySpawnController* EnemySpawnController;
+	UEnemySpawnController* EnemySpawnController;
 
 	/** game health component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Game Health")
-		UGameHealthComponent* HealthsComponent;
+	UGameHealthComponent* HealthsComponent;
 
 	UPROPERTY(BlueprintAssignable, Category = "Game")
-		FGameOverEvent GameOver;
+	FGameOverEvent GameOver;
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
-		void EndGame();
+	void EndGame();
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
 	void AddPoints(int Points);
 
+	UFUNCTION(BlueprintCallable, Category = "Game")
+	bool ChangeShootLevel(bool Up);
+
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
-		float PlayerRecoverTime;
+	float PlayerRecoverTime;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")
-		class	APlayerPawn* PlayerPawn;
+	class	APlayerPawn* PlayerPawn;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")
 	int	GamePoints;
+
+	UPROPERTY(EditAnywhere, Category = "Shooting")
+	TArray<FShootInfoLevel> ShootInfoLevels;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Shooting")
+	int CurrentShootLevel;
+
 };

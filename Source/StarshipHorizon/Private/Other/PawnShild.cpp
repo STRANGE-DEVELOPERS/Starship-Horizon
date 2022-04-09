@@ -2,28 +2,42 @@
 
 
 #include "Other/PawnShild.h"
-#include "Engine/World.h"
 #include "Pawns/PlayerPawn.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 // Sets default values
-APawnShild::APawnShild()
+APawnShild::APawnShild() :
+	ShieldTime(5.f)
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	
 
 }
 
 void APawnShild::ActivateShield(APlayerPawn* PlayerPawn)
 {
+	if (!PlayerPawn)
+	{
+		Destroy();
+		return;
+	}
+
+	ShieldForPawn = PlayerPawn;
+
 	PlayerPawn->bCanBeDamaged=false;
 
 	FAttachmentTransformRules AttachRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 
 	AttachToActor(PlayerPawn, AttachRules);
 	
+	GetWorld()->GetTimerManager().SetTimer(ShieldTimer, this, &APawnShild::DeactivateShield, ShieldTime, false);
 }
 
-void APawnShild::DiactivateShield()
+void APawnShild::DeactivateShield()
 {
+	if (!ShieldForPawn) return;
 
+	ShieldForPawn->bCanBeDamaged = true;
+
+	Destroy();
 }

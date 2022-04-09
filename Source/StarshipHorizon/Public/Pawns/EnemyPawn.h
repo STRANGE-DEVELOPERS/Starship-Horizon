@@ -7,7 +7,22 @@
 #include "Components/BoxComponent.h"
 #include "Components/ShootComponent.h"
 #include "Components/HealthComponent.h"
+#include "Projectile/Bonuses/Bonus.h"
 #include "EnemyPawn.generated.h"
+
+USTRUCT(BlueprintType)
+struct FBonusChance
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bonus")
+	TSubclassOf<ABonus> BonusClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bonus")
+	float Chance;
+
+};
 
 UCLASS()
 class STARSHIPHORIZON_API AEnemyPawn : public APawn
@@ -22,6 +37,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void SpawnBonuses();
+
 	UFUNCTION()
 	void DestroyPawn();
 
@@ -34,6 +51,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Pawn")
+	void KillPawn();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pawn")
 	UBoxComponent* PawnCollision;
@@ -49,4 +69,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Shooting")
 	int DestroyPoints;
+
+	//possible bonuses that may fall out
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Bonus")
+	TArray<FBonusChance> PossibleBonusses;
 };

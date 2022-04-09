@@ -53,8 +53,7 @@ void APlayerPawn::ExplodePawn_Implementation()
 	SetActorEnableCollision(false);
 
 	ShootComponent->StopShooting();
-
-	
+		
 }
 
 
@@ -80,9 +79,10 @@ float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, ACo
 		UE_LOG(LogTemp, Log, TEXT("Cannot be Damage"));
 		return 0.f;
 	}
+
+	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
 	PawnDamaged.Broadcast();
 	ExplodePawn();
-	Super::TakeDamage(Damage, DamageEvent, InstigatedBy, DamageCauser);
 	return Damage;
 }
 

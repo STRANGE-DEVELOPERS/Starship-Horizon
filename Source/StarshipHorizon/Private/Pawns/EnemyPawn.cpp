@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/World.h"
 #include "StarshipHorizon/StarshipHorizonGameModeBase.h"
 
 // Sets default values
@@ -30,14 +31,45 @@ void AEnemyPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	HealthComponent->OnHealthEnded.AddDynamic(this, &AEnemyPawn::DestroyPawn);
+	HealthComponent->OnHealthEnded.AddDynamic(this, &AEnemyPawn::KillPawn);
 	OnActorBeginOverlap.AddDynamic(this, &AEnemyPawn::OnEnemyOverlap);
+}
+
+void AEnemyPawn::SpawnBonuses()
+{
+	FRandomStream Random;
+	Random.GenerateNewSeed();
+
+	FActorSpawnParameters SpawnParameters;
+	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	for (FBonusChance Bonus : PossibleBonusses)
+	{
+		float RandChance = Random.RandRange(0.f, 100.f);
+		UE_LOG(LogTemp, Log, TEXT("BONUS CHANSE: %f"), RandChance);
+		if (RandChance < Bonus.Chance)
+		{
+			GetWorld()->SpawnActor<ABonus>(Bonus.BonusClass, GetActorLocation(), FRotator(0.f), SpawnParameters);
+			UE_LOG(LogTemp, Log, TEXT("BONUS!!"));
+		}
+	}
+}
+
+void AEnemyPawn::KillPawn()
+{
+	AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
+	if (GameMode) GameMode->AddPoints(DestroyPoints);
+
+	SpawnBonuses();
+
+	DestroyPawn();
 }
 
 void AEnemyPawn::DestroyPawn()
 {
-	AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
-	if (GameMode) GameMode->AddPoints(DestroyPoints);
+	/*AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
+	if (GameMode) GameMode->AddPoints(DestroyPoints);*/
+
 	Destroy();
 }
 
@@ -45,9 +77,9 @@ void AEnemyPawn::OnEnemyOverlap(AActor* OverlapedActor, AActor* OtherActor)
 {
 	if (OtherActor != UGameplayStatics::GetPlayerPawn(this, 0)) return;
 
-	UGameplayStatics::ApplyDamage(OtherActor, 100.f, GetController(), this, UDamageType::StaticClass());
+	float AppliedDamage = UGameplayStatics::ApplyDamage(OtherActor, 100.f, GetController(), this, UDamageType::StaticClass());
 
-	DestroyPawn();
+	if(AppliedDamage>0.f) DestroyPawn();
 }
 
 // Called every frame

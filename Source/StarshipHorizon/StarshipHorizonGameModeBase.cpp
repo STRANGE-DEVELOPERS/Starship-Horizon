@@ -8,7 +8,8 @@
 #include "Pawns/PlayerPawn.h"
 
 AStarshipHorizonGameModeBase::AStarshipHorizonGameModeBase():
-	PlayerRecoverTime(3)
+	PlayerRecoverTime(3),
+	CurrentShootLevel(-1)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
 	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthComponent"));
@@ -21,6 +22,10 @@ void AStarshipHorizonGameModeBase::BeginPlay()
 
 	PlayerPawn= Cast<APlayerPawn> (UGameplayStatics::GetPlayerPawn(this, 0));
 
+	if (!PlayerPawn) return;
+
+	ChangeShootLevel(true);
+
 	PlayerPawn -> PawnDamaged.AddDynamic(this, &AStarshipHorizonGameModeBase::ExplodePawn);
 }
 
@@ -28,6 +33,8 @@ void AStarshipHorizonGameModeBase::ExplodePawn_Implementation()
 {
 	PlayerPawn->ExplodePawn();
 	HealthsComponent->ChangeHealths(-1);
+
+	ChangeShootLevel(false);
 
 	GetWorld()->GetTimerManager().SetTimer(RecoverTime, this, &AStarshipHorizonGameModeBase::RecoverPawn, PlayerRecoverTime, false);
 }
@@ -46,4 +53,21 @@ void AStarshipHorizonGameModeBase::EndGame()
 void AStarshipHorizonGameModeBase::AddPoints(int Points)
 {
 	GamePoints += Points;
+}
+
+bool AStarshipHorizonGameModeBase::ChangeShootLevel(bool Up)
+{
+	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if (!PlayerPawn) return false;
+
+	int NewLevel = FMath::Clamp(CurrentShootLevel + (Up ? 1 : -1), 0, ShootInfoLevels.Num()-1);
+
+	if (NewLevel == CurrentShootLevel) return false;
+
+	CurrentShootLevel = NewLevel;
+
+	PlayerPawn->ShootComponent->ShootInfos = ShootInfoLevels[CurrentShootLevel].ShootInfos;
+	PlayerPawn->ShootComponent->ShootPeriod = ShootInfoLevels[CurrentShootLevel].ShootPeriod;
+
+	return true;
 }

@@ -5,12 +5,15 @@
 #include "Kismet/GameplayStatics.h"
 #include "Pawns/PlayerPawn.h"
 #include "Other/PawnShild.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 
 void ABonusShield::BonusCollected_Implementation()
 {
 	APawn* Pawn = UGameplayStatics::GetPlayerPawn(this, 0);
 
 	if (!Pawn) return;
+
 	APlayerPawn* PlayerPawn = Cast<APlayerPawn>(Pawn);
 
 	if(!PlayerPawn) return;
