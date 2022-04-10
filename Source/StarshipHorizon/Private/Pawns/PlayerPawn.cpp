@@ -4,6 +4,7 @@
 #include "Pawns/PlayerPawn.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/ShootComponent.h"
 #include "GameFramework/PlayerController.h"
 
 
