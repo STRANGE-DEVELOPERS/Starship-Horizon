@@ -32,18 +32,18 @@ class STARSHIPHORIZON_API AStarshipHorizonGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
-		AStarshipHorizonGameModeBase();
+	AStarshipHorizonGameModeBase();
 
 	virtual void BeginPlay() override;
 
 protected:
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Game")
-		void ExplodePawn();
+	void ExplodePawn();
 	void ExplodePawn_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Game")
-		void RecoverPawn();
+	void RecoverPawn();
 	void RecoverPawn_Implementation();
 
 	FTimerHandle RecoverTime;
