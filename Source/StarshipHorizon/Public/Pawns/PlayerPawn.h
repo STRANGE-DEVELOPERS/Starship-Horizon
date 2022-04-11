@@ -93,5 +93,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Healths")
 	FPawnDamagedEvent PawnDamaged;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Healths")
+	bool CanRecieveDamage;
 	
 };

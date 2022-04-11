@@ -24,7 +24,7 @@ void APawnShild::ActivateShield(APlayerPawn* PlayerPawn)
 
 	ShieldForPawn = PlayerPawn;
 
-	PlayerPawn->bCanBeDamaged=false;
+	PlayerPawn->CanRecieveDamage =false;
 
 	FAttachmentTransformRules AttachRules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 
@@ -37,7 +37,7 @@ void APawnShild::DeactivateShield()
 {
 	if (!ShieldForPawn) return;
 
-	ShieldForPawn->bCanBeDamaged = true;
+	ShieldForPawn->CanRecieveDamage = true;
 
 	Destroy();
 }

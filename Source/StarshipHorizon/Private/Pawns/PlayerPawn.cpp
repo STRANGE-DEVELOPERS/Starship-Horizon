@@ -11,7 +11,8 @@
 // Sets default values
 APlayerPawn::APlayerPawn()
 	:
-	TouchMoveSensivity(1.f)
+	TouchMoveSensivity(1.f),
+	CanRecieveDamage(true)
 	
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -43,8 +44,7 @@ void APlayerPawn::PossessedBy(AController* NewController)
 bool APlayerPawn::CanBeDamaged_Implementation()
 {
 	UE_LOG(LogTemp, Log, TEXT("Damage test"));
-	return true;
-
+	return CanRecieveDamage;
 }
 
 
@@ -52,11 +52,8 @@ bool APlayerPawn::CanBeDamaged_Implementation()
 void APlayerPawn::ExplodePawn_Implementation()
 {
 	SetActorEnableCollision(false);
-
-	ShootComponent->StopShooting();
-		
+	ShootComponent->StopShooting();	
 }
-
 
 
 void APlayerPawn::RecoverPawn_Implementation()
@@ -70,7 +67,6 @@ void APlayerPawn::RecoverPawn_Implementation()
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 float APlayerPawn::TakeDamage(float Damage, const FDamageEvent& DamageEvent, AController* InstigatedBy, AActor* DamageCauser)
