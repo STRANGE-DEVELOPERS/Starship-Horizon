@@ -37,7 +37,6 @@ void UHealthComponent::ChangeHealth(float Value)
 
 		OnHealthEnded.Broadcast();
 	}
-
 }
 
 float UHealthComponent::GetHealth()

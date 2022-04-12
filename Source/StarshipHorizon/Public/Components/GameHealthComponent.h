@@ -32,14 +32,18 @@ public:
 		void OnOwnerDamaged(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Health")
-		void ChangeHealths(int ByValue);
+	void ChangeHealths(int ByValue);
 
 	UFUNCTION(BlueprintPure, Category = "Game Health")
-		int GetHealths();
+	int GetHealths();
 		
 	UPROPERTY(BlueprintAssignable, Category = "Game Health")
-		FHealhtsEndedEvent HealthsEnded;
+	FHealhtsEndedEvent HealthsEnded;
 
 	UPROPERTY(BlueprintAssignable, Category = "Game Health")
-		FHealhtsChangedEvent HealthsChanged;
+	FHealhtsChangedEvent HealthsChanged;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Game")
+	float	GameHealths;
+
 };

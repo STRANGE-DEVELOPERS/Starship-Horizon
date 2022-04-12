@@ -67,6 +67,9 @@ public:
 	void AddPoints(int Points);
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
+	void AddHealth(int Points);
+
+	UFUNCTION(BlueprintCallable, Category = "Game")
 	bool ChangeShootLevel(bool Up);
 
 	UPROPERTY(BlueprintReadWrite, Category = "Game")

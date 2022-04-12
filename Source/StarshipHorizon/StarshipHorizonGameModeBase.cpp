@@ -55,6 +55,14 @@ void AStarshipHorizonGameModeBase::AddPoints(int Points)
 	GamePoints += Points;
 }
 
+
+void AStarshipHorizonGameModeBase::AddHealth(int Healths)
+{
+	HealthsComponent->ChangeHealths(Healths);
+
+	UE_LOG(LogTemp, Log, TEXT("Add Health"));
+}
+
 bool AStarshipHorizonGameModeBase::ChangeShootLevel(bool Up)
 {
 	PlayerPawn = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
