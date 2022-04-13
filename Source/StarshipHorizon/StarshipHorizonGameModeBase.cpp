@@ -70,7 +70,7 @@ bool AStarshipHorizonGameModeBase::ChangeShootLevel(bool Up)
 
 	int NewLevel = FMath::Clamp(CurrentShootLevel + (Up ? 1 : -1), 0, ShootInfoLevels.Num()-1);
 
-	if (NewLevel == CurrentShootLevel) return false;
+	if (NewLevel == CurrentShootLevel) return true;
 
 	CurrentShootLevel = NewLevel;
 
