@@ -46,6 +46,19 @@ void UGameHealthComponent::ChangeHealths(int ByValue)
 	UE_LOG(LogTemp, Log, TEXT("Health changed  %i"), Healths);
 }
 
+void UGameHealthComponent::AddHealths(int ByValue)
+{
+	
+	if (Healths >= 3)
+	{
+		Healths = 3;
+	}
+	else
+	{
+		Healths += ByValue;
+		HealthsChanged.Broadcast(ByValue);
+	}
+}
 int UGameHealthComponent::GetHealths()
 {
 	return Healths;

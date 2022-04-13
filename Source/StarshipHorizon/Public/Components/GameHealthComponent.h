@@ -29,10 +29,13 @@ protected:
 	
 public:	
 	UFUNCTION()
-		void OnOwnerDamaged(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+	void OnOwnerDamaged(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 	
 	UFUNCTION(BlueprintCallable, Category = "Game Health")
 	void ChangeHealths(int ByValue);
+
+	UFUNCTION(BlueprintCallable, Category = "Game Health")
+	void AddHealths(int ByValue);
 
 	UFUNCTION(BlueprintPure, Category = "Game Health")
 	int GetHealths();

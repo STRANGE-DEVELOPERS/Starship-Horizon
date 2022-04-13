@@ -58,7 +58,7 @@ void AStarshipHorizonGameModeBase::AddPoints(int Points)
 
 void AStarshipHorizonGameModeBase::AddHealth(int Healths)
 {
-	HealthsComponent->ChangeHealths(Healths);
+	HealthsComponent->AddHealths(Healths);
 
 	UE_LOG(LogTemp, Log, TEXT("Add Health"));
 }

@@ -4,6 +4,7 @@
 #include "Projectile/ShootProjectile.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Components/StaticMeshComponent.h"
 #include "..\..\Public\Projectile\ShootProjectile.h"
@@ -18,14 +19,15 @@ AShootProjectile::AShootProjectile()
 
 	Collision = CreateDefaultSubobject<USphereComponent>(TEXT("ProjectileCollision"));
 	RootComponent = Collision;
-	Collision->SetCollisionResponseToAllChannels(ECR_Ignore);
-	Collision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	Collision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	/*Collision->SetCollisionResponseToAllChannels(ECR_Ignore);
+	Collision->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);*/
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Collision, NAME_None);
 	Mesh->SetCollisionProfileName("NoCollision");
-	
-	
+
 }
 
 // Called when the game starts or when spawned
@@ -36,6 +38,10 @@ void AShootProjectile::BeginPlay()
 	if (GetOwner())
 	{
 		Collision->IgnoreActorWhenMoving(GetOwner(), true);
+		UBoxComponent* OwnerCollision = GetOwner()->FindComponentByClass<UBoxComponent>();
+		OwnerCollision->IgnoreActorWhenMoving(this, true);
+
+		Collision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
