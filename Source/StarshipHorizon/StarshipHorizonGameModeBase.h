@@ -48,6 +48,8 @@ protected:
 
 	FTimerHandle RecoverTime;
 
+	bool IsGameOver;
+
 public:
 	/** enemy spawn component  */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemies")

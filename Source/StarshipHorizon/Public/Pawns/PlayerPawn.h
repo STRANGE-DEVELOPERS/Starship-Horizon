@@ -49,7 +49,6 @@ private:
 	/** called to set touch location  */
 	void OnTouchPressed(ETouchIndex::Type Index, FVector Location);
 
-
 	FVector2D TouchLocation;
 
 	bool Touching;

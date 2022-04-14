@@ -36,7 +36,8 @@ void AStarshipHorizonGameModeBase::ExplodePawn_Implementation()
 
 	ChangeShootLevel(false);
 
-	GetWorld()->GetTimerManager().SetTimer(RecoverTime, this, &AStarshipHorizonGameModeBase::RecoverPawn, PlayerRecoverTime, false);
+	if(!IsGameOver)
+		GetWorld()->GetTimerManager().SetTimer(RecoverTime, this, &AStarshipHorizonGameModeBase::RecoverPawn, PlayerRecoverTime, false);
 }
 
 void AStarshipHorizonGameModeBase::RecoverPawn_Implementation()
@@ -46,7 +47,11 @@ void AStarshipHorizonGameModeBase::RecoverPawn_Implementation()
 
 void AStarshipHorizonGameModeBase::EndGame()
 {
+	IsGameOver = true;
+
+	EnemySpawnController->SetActive(false);
 	GameOver.Broadcast();
+
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"));
 }
 

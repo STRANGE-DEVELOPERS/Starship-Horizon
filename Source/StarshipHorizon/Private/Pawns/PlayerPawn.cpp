@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/ShootComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "GameFramework/PlayerController.h"
 
 
@@ -52,6 +53,7 @@ bool APlayerPawn::CanBeDamaged_Implementation()
 void APlayerPawn::ExplodePawn_Implementation()
 {
 	SetActorEnableCollision(false);
+
 	ShootComponent->StopShooting();	
 }
 

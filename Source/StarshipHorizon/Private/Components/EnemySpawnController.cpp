@@ -22,6 +22,14 @@ void UEnemySpawnController::BeginPlay()
 }
 
 
+void UEnemySpawnController::Deactivate()
+{
+	Super::Deactivate();
+
+	GetWorld()->GetTimerManager().ClearTimer(ChangeStageTimer);
+	GetWorld()->GetTimerManager().ClearTimer(EnemySpawnTimer);
+}
+
 void UEnemySpawnController::StartSpawnStage()
 
 {
