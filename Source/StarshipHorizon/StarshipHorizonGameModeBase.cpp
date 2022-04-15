@@ -9,7 +9,8 @@
 
 AStarshipHorizonGameModeBase::AStarshipHorizonGameModeBase():
 	PlayerRecoverTime(3),
-	CurrentShootLevel(-1)
+	CurrentShootLevel(-1),
+	IncreaseDifficultyPeriod(1.f)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
 	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthComponent"));
@@ -27,6 +28,7 @@ void AStarshipHorizonGameModeBase::BeginPlay()
 	ChangeShootLevel(true);
 
 	PlayerPawn -> PawnDamaged.AddDynamic(this, &AStarshipHorizonGameModeBase::ExplodePawn);
+	GetWorld()->GetTimerManager().SetTimer(IncreaseDifficultyTime, this, &AStarshipHorizonGameModeBase::IncreaseDifficulty, IncreaseDifficultyPeriod, true);
 }
 
 void AStarshipHorizonGameModeBase::ExplodePawn_Implementation()
@@ -53,6 +55,14 @@ void AStarshipHorizonGameModeBase::EndGame()
 	GameOver.Broadcast();
 
 	UE_LOG(LogTemp, Log, TEXT("GAME OVER!!!"));
+}
+
+void AStarshipHorizonGameModeBase::IncreaseDifficulty()
+{
+	EnemySpawnController->ChangeStageTimeMultiplier = FMath::Max(EnemySpawnController->ChangeStageTimeMultiplier * 0.95, 0.4);
+	UE_LOG(LogTemp, Log, TEXT("Difficulty Increase: %f"), EnemySpawnController->ChangeStageTimeMultiplier);
+
+
 }
 
 void AStarshipHorizonGameModeBase::AddPoints(int Points)

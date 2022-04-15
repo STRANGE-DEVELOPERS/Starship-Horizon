@@ -66,4 +66,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 		FEnemySpawnInfo SpawnStage;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
+		float ChangeStageTimeMultiplier;
+
 };

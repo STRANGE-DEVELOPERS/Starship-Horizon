@@ -47,7 +47,8 @@ protected:
 	void RecoverPawn_Implementation();
 
 	FTimerHandle RecoverTime;
-
+	FTimerHandle IncreaseDifficultyTime;
+	
 	bool IsGameOver;
 
 public:
@@ -66,6 +67,9 @@ public:
 	void EndGame();
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
+	void IncreaseDifficulty();
+
+	UFUNCTION(BlueprintCallable, Category = "Game")
 	void AddPoints(int Points);
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
@@ -76,6 +80,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
 	float PlayerRecoverTime;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Game")
+	float IncreaseDifficultyPeriod;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")
 	class	APlayerPawn* PlayerPawn;

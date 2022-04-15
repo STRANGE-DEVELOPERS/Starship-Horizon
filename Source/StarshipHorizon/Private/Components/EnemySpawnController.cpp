@@ -9,6 +9,7 @@
 
 // Called when the game starts
 void UEnemySpawnController::BeginPlay()
+	
 {
 	Super::BeginPlay();
 
@@ -40,7 +41,7 @@ void UEnemySpawnController::StartSpawnStage()
 	EnemiesSpawned = 0;
 	SpawnEnemy();
 
-	float ChangeStageTime = Random.RandRange(StageMinDelay, StageMaxDelay);
+	float ChangeStageTime = Random.RandRange(StageMinDelay, StageMaxDelay)* ChangeStageTimeMultiplier;
 
 	GetWorld()->GetTimerManager().SetTimer(ChangeStageTimer, this, &UEnemySpawnController::StartSpawnStage, ChangeStageTime, false);
 }
