@@ -73,4 +73,7 @@ public:
 	//possible bonuses that may fall out
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Bonus")
 	TArray<FBonusChance> PossibleBonusses;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Visual")
+	UParticleSystem* DestroyParticle;
 };

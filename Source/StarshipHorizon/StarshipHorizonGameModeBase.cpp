@@ -10,7 +10,7 @@
 AStarshipHorizonGameModeBase::AStarshipHorizonGameModeBase():
 	PlayerRecoverTime(3),
 	CurrentShootLevel(-1),
-	IncreaseDifficultyPeriod(1.f)
+	IncreaseDifficultyPeriod(4.f)
 {
 	EnemySpawnController = CreateDefaultSubobject<UEnemySpawnController>(TEXT("EnemySpawnController"));
 	HealthsComponent = CreateDefaultSubobject<UGameHealthComponent>(TEXT("HealthComponent"));

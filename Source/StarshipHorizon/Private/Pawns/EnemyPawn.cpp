@@ -69,6 +69,8 @@ void AEnemyPawn::DestroyPawn()
 {
 	/*AStarshipHorizonGameModeBase* GameMode = Cast<AStarshipHorizonGameModeBase>(UGameplayStatics::GetGameMode(this));
 	if (GameMode) GameMode->AddPoints(DestroyPoints);*/
+	if (DestroyParticle)
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyParticle, GetActorTransform(), true);
 
 	Destroy();
 }

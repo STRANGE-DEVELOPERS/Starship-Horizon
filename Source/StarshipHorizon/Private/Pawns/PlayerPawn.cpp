@@ -4,6 +4,7 @@
 #include "Pawns/PlayerPawn.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Components/ShootComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "GameFramework/PlayerController.h"
@@ -55,6 +56,9 @@ void APlayerPawn::ExplodePawn_Implementation()
 	SetActorEnableCollision(false);
 
 	ShootComponent->StopShooting();	
+
+	if(DestroyParticle)
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyParticle, GetActorTransform(), true);
 }
 
 

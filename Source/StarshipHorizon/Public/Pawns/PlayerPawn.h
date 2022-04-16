@@ -96,4 +96,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Healths")
 	bool CanRecieveDamage;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Visual")
+	UParticleSystem* DestroyParticle;
 };
