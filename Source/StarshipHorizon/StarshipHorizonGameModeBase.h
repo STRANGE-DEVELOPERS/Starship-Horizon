@@ -7,6 +7,7 @@
 #include "Components/EnemySpawnController.h"
 #include "Components/GameHealthComponent.h"
 #include "Components/ShootComponent.h"
+#include "Pawns/EnemyPawn.h"
 #include "StarshipHorizonGameModeBase.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameOverEvent);
@@ -25,6 +26,7 @@ public:
 	float ShootPeriod;
 
 };
+
 
 
 UCLASS()
@@ -66,7 +68,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Game")
 	void EndGame();
 
-	UFUNCTION(BlueprintCallable, Category = "Game")
+	UFUNCTION( BlueprintCallable, Category = "Game")
 	void IncreaseDifficulty();
 
 	UFUNCTION(BlueprintCallable, Category = "Game")
@@ -81,7 +83,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = "Game")
 	float PlayerRecoverTime;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Game")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game")
 	float IncreaseDifficultyPeriod;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Game")

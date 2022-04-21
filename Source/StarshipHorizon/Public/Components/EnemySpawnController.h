@@ -12,17 +12,29 @@ struct FEnemySpawnInfo
 {
 	GENERATED_BODY()
 
-		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-		TSubclassOf<AEnemyPawn> EnemyClass = AEnemyPawn::StaticClass();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	TSubclassOf<AEnemyPawn> EnemyClass = AEnemyPawn::StaticClass();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-		FTransform SpawnTransform;
+	FTransform SpawnTransform;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-		int32 NumOfEnemies;
+	int32 NumOfEnemies;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
-		float SpawnDelay;
+	float SpawnDelay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	TSubclassOf<AEnemyPawn> EnemyClassTwo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	FTransform SpawnTransformTwo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	int32 NumOfEnemiesTwo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawning")
+	float SpawnDelayTwo;
 };
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -55,7 +67,7 @@ public:
 	// Called every frame
 	/** spawn infos for this game  */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
-		TArray<FEnemySpawnInfo> SpawnInfos;
+	TArray<FEnemySpawnInfo> SpawnInfos;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Enemies")
 		float StageMinDelay;

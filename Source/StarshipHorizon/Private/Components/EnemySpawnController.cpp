@@ -19,7 +19,6 @@ void UEnemySpawnController::BeginPlay()
 
 	StartSpawnStage();
 
-
 }
 
 
@@ -34,8 +33,6 @@ void UEnemySpawnController::Deactivate()
 void UEnemySpawnController::StartSpawnStage()
 
 {
-
-
 	SpawnStage = SpawnInfos[Random.RandRange(0, SpawnInfos.Num() - 1)];
 
 	EnemiesSpawned = 0;
@@ -50,7 +47,7 @@ void UEnemySpawnController::SpawnEnemy()
 {
 	FActorSpawnParameters SpawnParameters;
 	GetWorld()->SpawnActor<AEnemyPawn>(SpawnStage.EnemyClass, SpawnStage.SpawnTransform, SpawnParameters);
-
+	GetWorld()->SpawnActor<AEnemyPawn>(SpawnStage.EnemyClassTwo, SpawnStage.SpawnTransformTwo, SpawnParameters);
 
 	EnemiesSpawned++;
 	if (EnemiesSpawned < SpawnStage.NumOfEnemies) {
@@ -58,6 +55,11 @@ void UEnemySpawnController::SpawnEnemy()
 		GetWorld()->GetTimerManager().SetTimer(EnemySpawnTimer, this, &UEnemySpawnController::SpawnEnemy, SpawnStage.SpawnDelay, false);
 	}
 
+	EnemiesSpawned++;
+	if (EnemiesSpawned < SpawnStage.NumOfEnemiesTwo) {
+
+		GetWorld()->GetTimerManager().SetTimer(EnemySpawnTimer, this, &UEnemySpawnController::SpawnEnemy, SpawnStage.SpawnDelayTwo, false);
+	}
 };
 
 // Called every frame
