@@ -62,6 +62,8 @@ void AEnemyPawn::KillPawn()
 
 	SpawnBonuses();
 
+	UGameplayStatics::SpawnSoundAtLocation(this, DestroySound, GetActorLocation());
+
 	DestroyPawn();
 }
 

@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/ShootComponent.h"
+#include "Sound/SoundBase.h"
 #include "PlayerPawn.generated.h"
 
 
@@ -33,7 +34,9 @@ protected:
 
 	virtual void PossessedBy(AController* NewController) override;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+	class USoundBase* DestroySound;
+
 
 	APlayerController* PlayerController;
 

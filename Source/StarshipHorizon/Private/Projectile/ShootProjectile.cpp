@@ -7,6 +7,7 @@
 #include "Components/BoxComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Components/StaticMeshComponent.h"
+
 #include "..\..\Public\Projectile\ShootProjectile.h"
 
 // Sets default values
@@ -45,6 +46,8 @@ void AShootProjectile::BeginPlay()
 	}
 
 	Collision->OnComponentBeginOverlap.AddDynamic(this, &AShootProjectile::OnProjectileOverlap);
+
+	
 }
 
 void AShootProjectile::OnProjectileOverlap(UPrimitiveComponent* OpelappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 BodyIndex, bool Sweep, const FHitResult& Hit)

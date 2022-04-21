@@ -8,6 +8,7 @@
 #include "Components/ShootComponent.h"
 #include "Components/HealthComponent.h"
 #include "Projectile/Bonuses/Bonus.h"
+#include "Sound/SoundBase.h"
 #include "EnemyPawn.generated.h"
 
 USTRUCT(BlueprintType)
@@ -44,6 +45,10 @@ protected:
 
 	UFUNCTION()
 	void OnEnemyOverlap(AActor* OverlapedActor, AActor* OtherActor);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+	class USoundBase* DestroySound;
+
 
 public:	
 	// Called every frame

@@ -59,6 +59,7 @@ void APlayerPawn::ExplodePawn_Implementation()
 
 	if(DestroyParticle)
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), DestroyParticle, GetActorTransform(), true);
+	UGameplayStatics::SpawnSoundAtLocation(this, DestroySound, GetActorLocation());
 }
 
 
