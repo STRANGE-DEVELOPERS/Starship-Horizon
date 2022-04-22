@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Sound/SoundBase.h"
 #include "Bonus.generated.h"
 
 
@@ -25,6 +26,9 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, Category = "Bonus")
 	void BonusCollected();
 	virtual void BonusCollected_Implementation();
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
+	class USoundBase* DestroySound;
 
 	virtual void Tick(float DeltaTime) override;
 

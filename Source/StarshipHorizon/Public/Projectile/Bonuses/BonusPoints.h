@@ -16,6 +16,7 @@ class STARSHIPHORIZON_API ABonusPoints : public ABonus
 
 protected:
 
+
 	virtual void BonusCollected_Implementation() override;
 
 public:

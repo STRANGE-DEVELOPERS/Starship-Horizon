@@ -16,6 +16,7 @@ class STARSHIPHORIZON_API ABonusShootLevelUp : public ABonus
 
 protected:
 
+
 	virtual void BonusCollected_Implementation() override;
 	
 };
